@@ -1,0 +1,8 @@
+source "$HOME/.dotfiles/functions.zsh"
+source "$HOME/.dotfiles/envs.zsh"
+source "$HOME/.dotfiles/plugins.zsh"
+source "$HOME/.dotfiles/bindkeys.zsh"
+source "$HOME/.dotfiles/loaders.zsh"
+source "$HOME/.dotfiles/paths.zsh"
+source "$HOME/.dotfiles/alias.zsh"
+source "$HOME/.dotfiles/p10k.zsh"
