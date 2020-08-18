@@ -27,3 +27,4 @@ else
   __unset_if_defined 'MINIKUBE_ACTIVE_DOCKERD'
 fi
 
+poetry completions zsh > "$ZINIT_HOME/completions/_poetry" 
