@@ -9,8 +9,10 @@ function __compile_completions_if_necesary() {
 
 
 function __docker_is_running() {
-  nc -zv k8s.local.technology 2376 > /dev/null 2>&1  
-  return $?
+
+  netcat -z -w 2 k8s.local.technology 2376 > /dev/null 2>&1  
+
+  echo $?
 }
 
 

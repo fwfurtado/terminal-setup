@@ -11,12 +11,14 @@ source $ZSH/oh-my-zsh.sh
 source $(brew --prefix asdf)/asdf.sh
 
 # Set JAVA_HOME to current asdf java 
-source ~/.asdf/plugins/java/set-java-home.sh
+source ~/.asdf/plugins/java/set-java-home.zsh
 
 # Load SCM_Breeze 
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
 
-if [[ __docker_is_running -eq 0 ]]; then
+local docker_is_running=$(__docker_is_running)
+
+if [[ $docker_is_running -eq 0 ]]; then
   eval $(minikube -p minikube docker-env) 
 else 
   __unset_if_defined 'DOCKER_TLS_VERIFY'

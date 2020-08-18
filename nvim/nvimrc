@@ -18,6 +18,9 @@ let g:user_emmet_leader_key=','
 let g:user_emmet_mode='n'
 let g:user_emmet_install_global = 1
 
+let g:python3_host_prog='/Users/fernando.furtado/anaconda3/bin/python'
+
+
 colorscheme onedark
 
 syntax on

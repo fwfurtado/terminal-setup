@@ -7,3 +7,4 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
 
 export ZSHSIFY_DIR="$HOME/.zinit/plugins/zdharma---zsh-startify/"
+export ERL_AFLAGS="-kernel shell_history enabled"
