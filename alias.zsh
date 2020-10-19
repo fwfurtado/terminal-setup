@@ -27,6 +27,7 @@ alias la='ls -lah'
 alias home='cd $HOME' 
 alias xargs='xargs ' # by default xargs does not expand alias, but on alias with trailing space cause the expand next alias of next word
 
+alias watch='watch ' # by default watch does not expand alias, but on alias with trailing space cause the expand next alias of next word
 alias neofetch='neofetch | lolcat'
 
 # Make zsh know about hosts already accessed by SSH
