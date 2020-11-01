@@ -18,6 +18,7 @@ alias funrc='_edit_file ~/.dotfiles/functions.zsh'
 
 #commons
 alias vim=nvim
+alias please='sudo $(fc -ln -1)'
 alias ls='lsd --group-dirs first'
 alias lt='ls --tree'
 alias grep='grep --color'
@@ -25,10 +26,17 @@ alias l='ls -lh'
 alias ll='l' 
 alias la='ls -lah' 
 alias home='cd $HOME' 
-alias xargs='xargs ' # by default xargs does not expand alias, but on alias with trailing space cause the expand next alias of next word
+alias pacman='sudo pacman' 
 
-alias watch='watch ' # by default watch does not expand alias, but on alias with trailing space cause the expand next alias of next word
+# by default some commands does not expand alias, but on alias with trailing space cause the expand next alias of next word
+alias xargs='xargs ' 
+alias watch='watch ' 
+alias sudo='sudo ' 
+
+
 alias neofetch='neofetch | lolcat'
+alias pbcopy='xsel --clipboard --input'
+alias pbpast='xsel --clipboard --output'
 
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
@@ -48,94 +56,3 @@ function __gdt() {
 
 alias gdt='__gdt'
 
-
-function __k8s() {
-
-  case "$1" in 
-    'stop')
-      minikube stop
-
-      unset DOCKER_TLS_VERIFY
-      unset DOCKER_HOST
-      unset DOCKER_CERT_PATH
-      unset MINIKUBE_ACTIVE_DOCKERD
-      
-      hostess del k8s.local.techonolgy > /dev/null 2>&1 
-      ;;
-    'start')
-      minikube start
-
-      eval $(minikube -p minikube docker-env)
-
-      local k8s_ip=$(minikube ip)
-
-      hostess add k8s.local.technology $k8s_ip > /dev/null 2>&1
-      ;;
-    'restart')
-      __k8s stop
-      __k8s start
-      ;;
-    *)
-      minikube $@
-      ;;
-  esac    
-  
-}
-
-if hash minikube 2>/dev/null; then
-  alias k8s='__k8s $@'
-fi
-
-alias kgj='kubectl get jobs'
-alias kgnsc='kubens -c'
-
-function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
-
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-
-function __lctl() {
-
-  if [ $# = 0 ]; then
-    launchctl 
-    return 0
-  fi
-
-  local action=$1
-  shift 
-  
-  local length=${#/0/1}
-  local params=''
-  local target=''
-
-  for index in $(seq $length); do
-    if [ $index = $length ]; then
-      target=$1
-    else
-      params="$params $1"
-      shift
-    fi
-  done
-
-  params=${params## }
-  params=${params%% }
-
-  case "$action" in
-    'load')
-      launchctl $action "$HOME/Library/LaunchAgents/$target.plist"
-      ;;
-    'unload')
-      launchctl $action "$HOME/Library/LaunchAgents/$target.plist"
-      ;;
-    'reload')
-      __lctl unload $params $target > /dev/null 2>&1
-      __lctl load $params $target
-      ;;
-    *)
-      launchctl $action $params $target
-      ;;
-  esac
-}
-
-alias lctl='__lctl'
