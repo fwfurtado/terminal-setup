@@ -9,7 +9,7 @@ __compile_completions_if_necesary
 source $ZSH/oh-my-zsh.sh
 
 # Load asdf 
-source $(brew --prefix asdf)/asdf.sh
+source  $ASDF_HOME/asdf.sh
 
 # Set JAVA_HOME to current asdf java 
 source ~/.asdf/plugins/java/set-java-home.zsh
@@ -19,20 +19,3 @@ source ~/.asdf/plugins/java/set-java-home.zsh
 
 
 poetry completions zsh > "$ZINIT_HOME/completions/_poetry" && compinit 
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/fernando.furtado/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/fernando.furtado/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/fernando.furtado/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/fernando.furtado/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-launchctl setenv PATH $PATH 
